@@ -51,7 +51,7 @@ const AddEventPage = () => {
     const imageFile = data.banner[0];
     const imageUrl = await uploadImage(imageFile);
     // console.log(data?.banner, "data.banner");
-
+    console.log(data);
     delete data?.banner;
     const updateData = {
       ...data,
@@ -60,11 +60,12 @@ const AddEventPage = () => {
     };
 
     const result = await addEvent(updateData);
-    // console.log(result);
 
     if (result.insertedId) {
       toast.success("Event added successfully...");
       redirect("/events");
+    } else {
+      toast.error(result.message || "Event not created...");
     }
   };
 
@@ -93,7 +94,7 @@ const AddEventPage = () => {
               {/* Title + Banner */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                 <div className="w-full">
-                  <Label htmlFor="title">Title</Label>
+                  <label htmlFor="title">Title</label>
                   <Input
                     label="Event Title"
                     className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3"
@@ -111,7 +112,7 @@ const AddEventPage = () => {
                 </div>
 
                 <div className="w-full">
-                  <Label htmlFor="image">Image</Label>
+                  <label htmlFor="image">Image</label>
                   <Input
                     {...register("banner", { required: "Banner is Required" })}
                     type="file"
@@ -119,7 +120,7 @@ const AddEventPage = () => {
                     id="logo"
                     placeholder="https://example.com/avatar.jpg"
                     labelPlacement="outside"
-                    startContent={
+                    startadornment={
                       <FaImage className="text-slate-400 text-sm" />
                     }
                     className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
@@ -138,7 +139,7 @@ const AddEventPage = () => {
               {/* Category + Location */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                 <div className="w-full">
-                  <Label htmlFor="category">Category</Label>
+                  <label htmlFor="category">Category</label>
                   <select
                     id="category"
                     {...register("category", {
@@ -153,12 +154,12 @@ const AddEventPage = () => {
                     ))}
                   </select>
 
-                  <input
+                  {/* <input
                     type="hidden"
                     {...register("category", {
                       required: "Category is required",
                     })}
-                  />
+                  /> */}
 
                   {errors.category && (
                     <p className="text-red-500 text-xs mt-1">
@@ -168,7 +169,7 @@ const AddEventPage = () => {
                 </div>
 
                 <div className="w-full">
-                  <Label htmlFor="location">Location</Label>
+                  <label htmlFor="location">Location</label>
                   <select
                     id="location"
                     {...register("location", {
@@ -183,12 +184,12 @@ const AddEventPage = () => {
                     ))}
                   </select>
 
-                  <input
+                  {/* <input
                     type="hidden"
                     {...register("location", {
                       required: "Location is required",
                     })}
-                  />
+                  /> */}
 
                   {errors.location && (
                     <p className="text-red-500 text-xs mt-1">
@@ -201,7 +202,7 @@ const AddEventPage = () => {
               {/* Date + Price + Capacity */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
                 <div>
-                  <Label htmlFor="date">Date</Label>
+                  <label htmlFor="date">Date</label>
                   <Input
                     className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3"
                     type="date"
@@ -220,7 +221,7 @@ const AddEventPage = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="price">Price</Label>
+                  <label htmlFor="price">Price</label>
                   <Input
                     className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3"
                     type="number"
@@ -245,7 +246,7 @@ const AddEventPage = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="capacity">Capacity</Label>
+                  <label htmlFor="capacity">Capacity</label>
                   <Input
                     type="number"
                     label="Available Capacity"
@@ -271,7 +272,7 @@ const AddEventPage = () => {
 
               {/* Description */}
               <div className="w-full">
-                <Label htmlFor="description">Description</Label>
+                <label htmlFor="description">Description</label>
                 <TextArea
                   className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3"
                   label="Detailed Description"
